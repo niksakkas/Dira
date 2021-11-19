@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  frontend:
+    build: ./front-end
+    restart: always
+    environment:
+      env_file: .env
+    ports:
+      - 3000:3000
+
+  backend:
+    image: dira-backend:latest
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/dira
+    ports:
+      - 8080:8080
+      - 8443:8443
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: dira_is_the_best
+      POSTGRES_DB: dira
